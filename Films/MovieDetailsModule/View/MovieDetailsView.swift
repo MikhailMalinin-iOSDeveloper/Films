@@ -79,8 +79,8 @@ final class MovieDetailsView: UIView {
 
     // MARK: - Public methods
 
-    func setupUI(movie: Movie, imageData: Data) {
-        movieImageView.image = UIImage(data: imageData)
+    func setupUI(movie: Movie, image: UIImage?) {
+        movieImageView.image = image
         movieNameLabel.text = movie.title
         movieDescriptionLabel.text = movie.overview
     }

@@ -14,7 +14,7 @@ protocol ImageProxyServiceProtocol {
 
 final class ImageProxyService: ImageProxyServiceProtocol {
     // MARK: - Private properties
-    
+
     private let networkService: LoadImageServiceProtocol
     private let cacheService: ImagesCacheServiceProtocol
 
@@ -32,7 +32,7 @@ final class ImageProxyService: ImageProxyServiceProtocol {
             completion(.success(image))
             return
         }
-        
+
         networkService.loadPhoto(by: path) { [weak self] result in
             switch result {
             case let .success(data):

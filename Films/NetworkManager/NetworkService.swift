@@ -13,61 +13,114 @@ protocol LoadMoviesServiceProtocol {
 
 protocol LoadImageServiceProtocol {
     func loadPhotos(for movieId: Int, completion: @escaping (Result<[Photo]?, Error>) -> ())
+    func loadPhoto(by path: String, completion: @escaping (Result<Data, Error>) -> ())
 }
 
 protocol NetworkServiceProtocol: LoadImageServiceProtocol, LoadMoviesServiceProtocol {}
 
 /// Network Manager
-struct NetworkService {
+struct NetworkService: NetworkServiceProtocol {
     // MARK: - Private properties
 
+    private let session = URLSession.shared
+
+    private let scheme = "https"
+    private let movieHost = "api.themoviedb.org"
+    private let imageHost = "image.tmdb.org"
     private let apiKey = "804ca42a0a9aa645433a61786eafd0eb"
 
     // MARK: - Public methods
 
-    func fetchMovies(category: MovieCategory, completion: @escaping (MovieResponse) -> ()) {
-        let jsonURLString = "https://api.themoviedb.org/3/movie/\(category.rawValue)?api_key=\(apiKey)"
+    func fetchMovies(category: MovieCategory, completion: @escaping (Result<[Movie], Error>) -> ()) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = scheme
+        urlComponents.host = movieHost
+        urlComponents.path = "/3/movie/\(category.rawValue)"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "api_key", value: apiKey)
+        ]
 
-        guard let url = URL(string: jsonURLString) else { return }
+        guard let url = urlComponents.url else { preconditionFailure("Failed to build url") }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
 
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else { return }
-
-            do {
-                let movieResponse = try JSONDecoder().decode(MovieResponse.self, from: data)
-                completion(movieResponse)
-            } catch {
-                print(error)
-            }
-        }.resume()
-    }
-    
-    func loadImage(by path: String, completion: @escaping (Data?) -> ()) {
-        let config = URLSessionConfiguration.default
-        config.requestCachePolicy = .reloadRevalidatingCacheData
-        config.urlCache = nil
-
-        let session = URLSession(configuration: config)
-
-        var dataTask: URLSessionDataTask?
-
-        let jsonURLString = "https://image.tmdb.org/t/p/w500\(path)"
-
-        guard let url = URL(string: jsonURLString) else { return }
-
-        dataTask = session.dataTask(with: url) { data, _, error in
-            dataTask?.cancel()
-            defer {
-                dataTask = nil
-            }
-
+        let task = session.dataTask(with: url) { data, _, error in
             if let error = error {
-                print(error)
-            }
-            if let data = data {
-                completion(data)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            } else if let data = data {
+                do {
+                    let movies = try JSONDecoder().decode(MovieResponse.self, from: data).movies
+                    DispatchQueue.main.async {
+                        completion(.success(movies))
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion(.failure(error))
+                    }
+                }
             }
         }
-        dataTask?.resume()
+
+        DispatchQueue.global().async {
+            task.resume()
+        }
+    }
+
+    func loadPhotos(for movieId: Int, completion: @escaping (Result<[Photo]?, Error>) -> ()) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = scheme
+        urlComponents.host = movieHost
+        urlComponents.path = "/\(movieId)/images"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "api_key", value: apiKey)
+        ]
+
+        guard let url = urlComponents.url else { preconditionFailure("Failed to build url") }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+
+        let task = session.dataTask(with: url) { data, _, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let data = data {
+                do {
+                    let photos = try JSONDecoder().decode(PhotoRequestModel.self, from: data).backdrops
+                    completion(.success(photos))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+
+        DispatchQueue.global().async {
+            task.resume()
+        }
+    }
+
+    func loadPhoto(by path: String, completion: @escaping (Result<Data, Error>) -> ()) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = scheme
+        urlComponents.host = imageHost
+        urlComponents.path = "/t/p/w500\(path)"
+
+        guard let url = urlComponents.url else { preconditionFailure("Failed to build url") }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+
+        let task = session.dataTask(with: url) { data, _, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let data = data {
+                DispatchQueue.main.async {
+                    completion(.success(data))
+                }
+            }
+        }
+
+        DispatchQueue.global().async {
+            task.resume()
+        }
     }
 }

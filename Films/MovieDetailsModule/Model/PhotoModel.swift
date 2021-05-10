@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 /// PhotoRequestModel
 struct PhotoRequestModel: Codable {
@@ -14,19 +13,14 @@ struct PhotoRequestModel: Codable {
     let backdrops: [Photo]
 }
 
-@objcMembers
-final class Photo: Object {
-    dynamic var filmId = 0
-    dynamic var aspectRatio = 0.0
-    dynamic var filePath = ""
+/// Photo model
+struct Photo: Codable {
+    let filmId: Int
+    let aspectRatio: Double
+    let filePath: String
 
-    override class func primaryKey() -> String? {
-        "filePath"
-    }
-}
-
-extension Photo: Codable {
     enum CodingKeys: String, CodingKey {
+        case filmId
         case aspectRatio = "aspect_ratio"
         case filePath = "file_path"
     }

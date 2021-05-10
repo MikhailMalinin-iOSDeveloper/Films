@@ -21,9 +21,9 @@ final class MovieDetailsViewController: UIViewController {
 
     // MARK: - Public methods
 
-    func setupUI(movie: Movie, imageData: Data) {
+    func setupUI(movie: Movie, image: UIImage?) {
         guard let movieDetailsView = view as? MovieDetailsView else { return }
 
-        movieDetailsView.setupUI(movie: movie, imageData: imageData)
+        movieDetailsView.setupUI(movie: movie, image: image)
     }
 }

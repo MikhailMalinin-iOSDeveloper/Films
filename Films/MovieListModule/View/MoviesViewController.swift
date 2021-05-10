@@ -18,8 +18,10 @@ final class MoviesViewController: UIViewController {
     private let moviesView = MoviesView(withCellId: .movieCell)
     private let cellId = "movieCell"
     private var movies: [Movie] = []
-    private let imageService = ImageService()
-    private lazy var imageProxy = ImageProxy(service: imageService)
+    private lazy var imageProxy = ImageProxyService(
+        networkService: NetworkService(),
+        cacheService: ImagesCacheService()
+    )
 
     // MARK: - ViewController Life cycle
 
@@ -39,10 +41,15 @@ final class MoviesViewController: UIViewController {
     // MARK: - Private Methods
 
     private func loadData(category: MovieCategory) {
-        NetworkManager().fetchMovies(category: category) { [weak self] movieResponse in
-            self?.movies = movieResponse.movies
-            DispatchQueue.main.async {
-                self?.moviesView.reloadTableView()
+        NetworkService().fetchMovies(category: category) { [weak self] result in
+            switch result {
+            case let .success(movies):
+                self?.movies = movies
+                DispatchQueue.main.async {
+                    self?.moviesView.reloadTableView()
+                }
+            case let .failure(error):
+                print(error)
             }
         }
     }
@@ -64,11 +71,13 @@ extension MoviesViewController: MoviesViewDelegate {
 
 extension MoviesViewController: MoviesTableViewCellDelegate {
     func getImage(forMovie movie: Movie, completion: @escaping (UIImage?) -> ()) {
-        imageProxy.loadImage(by: movie.posterPath) { data in
-            if let data = data {
-                DispatchQueue.main.async {
-                    completion(UIImage(data: data))
-                }
+        imageProxy.getImage(by: movie.posterPath) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(image):
+                completion(image)
+            case let .failure(error):
+                self.showError(error)
             }
         }
     }
@@ -103,8 +112,14 @@ extension MoviesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movieDetailsVC = MovieDetailsViewController()
         let movie = movies[indexPath.row]
-        if let imageData = imageProxy.cache[movie.posterPath] {
-            movieDetailsVC.setupUI(movie: movie, imageData: imageData)
+        imageProxy.getImage(by: movie.posterPath) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(image):
+                movieDetailsVC.setupUI(movie: movie, image: image)
+            case let .failure(error):
+                self.showError(error)
+            }
         }
         navigationController?.pushViewController(movieDetailsVC, animated: true)
     }
