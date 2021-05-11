@@ -8,10 +8,12 @@
 import UIKit
 
 protocol MovieListTableViewCellDelegate: AnyObject {
-    func getImage(forMovie movie: Movie?, completion: @escaping (UIImage?) -> ())
+    func fetchImage(by path: String, completion: @escaping (UIImage?) -> ())
 }
 
 final class MovieListTableViewCell: UITableViewCell {
+    static let id = "MovieListTableViewCell"
+
     // MARK: - Public properties
 
     weak var delegate: MovieListTableViewCellDelegate?
@@ -101,9 +103,8 @@ final class MovieListTableViewCell: UITableViewCell {
         movieNameLabel.text = movie?.title
         movieDescriptionLabel.text = movie?.overview
         movieReleaseDateLabel.text = movie?.releaseDate
-        delegate?.getImage(forMovie: movie) { [weak self] image in
-            guard let self = self else { return }
-            self.movieImageView.image = image
+        delegate?.fetchImage(by: movie?.posterPath ?? "") { [weak self] image in
+            self?.movieImageView.image = image
         }
     }
 

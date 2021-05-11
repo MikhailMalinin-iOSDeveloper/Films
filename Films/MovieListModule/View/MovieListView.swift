@@ -19,14 +19,18 @@ final class MovieListView: UIView {
 
     // MARK: - Public properties
 
-    weak var delegate: MovieListViewDelegate?
+    weak var delegate: MovieListViewDelegate? {
+        didSet {
+            setTableViewDelegateAndDataSource()
+        }
+    }
 
     // MARK: - Inits
 
-    init(withCellId id: String) {
+    init() {
         super.init(frame: .zero)
 
-        setupView(withCellId: id)
+        setupView()
     }
 
     @available(*, unavailable)
@@ -51,10 +55,10 @@ final class MovieListView: UIView {
 
     // MARK: - PrivateMethods
 
-    private func setupView(withCellId id: String) {
+    private func setupView() {
         backgroundColor = .systemBackground
 
-        tableView.register(MovieListTableViewCell.self, forCellReuseIdentifier: id)
+        tableView.register(MovieListTableViewCell.self, forCellReuseIdentifier: MovieListTableViewCell.id)
     }
 
     private func setTableViewDelegateAndDataSource() {

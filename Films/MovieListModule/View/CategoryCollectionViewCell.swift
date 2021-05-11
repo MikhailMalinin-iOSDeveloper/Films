@@ -8,6 +8,8 @@
 import UIKit
 
 final class CategoryCollectionViewCell: UICollectionViewCell {
+    static let id = "CategoryCollectionViewCell"
+
     // MARK: - Private properties
 
     private let categoryLabel: UILabel = {

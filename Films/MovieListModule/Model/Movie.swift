@@ -34,3 +34,17 @@ struct Movie: Codable {
         case voteAverage = "vote_average"
     }
 }
+
+// enum MovieListModel {
+//    case loading
+//    case error(_ error: Error)
+//    case data(_ data: [MovieModel])
+//
+//    struct MovieModel {
+//        let title: String
+//        let photoData: Data?
+//        let description: String
+//        let rating: Double
+//        let date: String
+//    }
+// }
