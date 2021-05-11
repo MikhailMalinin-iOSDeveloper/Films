@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol ImageProxyServiceProtocol {
-    func getImage(by path: String, completion: @escaping (Result<UIImage?, Error>) -> ())
+    func getImage(by path: String?, completion: @escaping (Result<UIImage?, Error>) -> ())
 }
 
 final class ImageProxyService: ImageProxyServiceProtocol {
@@ -27,7 +27,8 @@ final class ImageProxyService: ImageProxyServiceProtocol {
 
     // MARK: - Public Methods
 
-    func getImage(by path: String, completion: @escaping (Result<UIImage?, Error>) -> ()) {
+    func getImage(by path: String?, completion: @escaping (Result<UIImage?, Error>) -> ()) {
+        guard let path = path else { return }
         if let image = cacheService.getImageFromCache(path: path) {
             completion(.success(image))
             return

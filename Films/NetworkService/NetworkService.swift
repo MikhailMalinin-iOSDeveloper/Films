@@ -18,8 +18,7 @@ protocol LoadImageServiceProtocol {
 
 protocol NetworkServiceProtocol: LoadImageServiceProtocol, LoadMoviesServiceProtocol {}
 
-/// Network Manager
-struct NetworkService: NetworkServiceProtocol {
+final class NetworkService: NetworkServiceProtocol {
     // MARK: - Private properties
 
     private let session = URLSession.shared
