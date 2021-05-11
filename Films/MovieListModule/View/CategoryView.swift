@@ -37,10 +37,10 @@ final class CategoryView: UIView {
         categoryCollectionView?.anchor(
             top: topAnchor,
             bottom: bottomAnchor,
-            left: leftAnchor,
-            right: rightAnchor,
-            paddingLeft: 10,
-            paddingRight: 10
+            leading: leadingAnchor,
+            trailing: trailingAnchor,
+            paddingLeading: 10,
+            paddingTrailing: 10
         )
     }
 

@@ -12,7 +12,7 @@ enum MovieCellId: String {
     case movieCell
 }
 
-final class MoviesViewController: UIViewController {
+final class MovieListViewController: UIViewController {
     // MARK: - Private properties
 
     private let moviesView = MoviesView(withCellId: .movieCell)
@@ -57,7 +57,7 @@ final class MoviesViewController: UIViewController {
 
 // MARK: - MoviesViewDelegate
 
-extension MoviesViewController: MoviesViewDelegate {
+extension MovieListViewController: MoviesViewDelegate {
     func setupTableViewDelegate() -> UITableViewDelegate {
         self
     }
@@ -69,7 +69,7 @@ extension MoviesViewController: MoviesViewDelegate {
 
 // MARK: - MoviesTableViewCellDelegate
 
-extension MoviesViewController: MoviesTableViewCellDelegate {
+extension MovieListViewController: MoviesTableViewCellDelegate {
     func getImage(forMovie movie: Movie, completion: @escaping (UIImage?) -> ()) {
         imageProxy.getImage(by: movie.posterPath) { [weak self] result in
             guard let self = self else { return }
@@ -85,7 +85,7 @@ extension MoviesViewController: MoviesTableViewCellDelegate {
 
 // MARK: - UITableViewDataSource
 
-extension MoviesViewController: UITableViewDataSource {
+extension MovieListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         movies.count
     }
@@ -104,7 +104,7 @@ extension MoviesViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension MoviesViewController: UITableViewDelegate {
+extension MovieListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         150
     }
@@ -132,7 +132,7 @@ extension MoviesViewController: UITableViewDelegate {
     }
 }
 
-extension MoviesViewController: CategoryViewDelegate {
+extension MovieListViewController: CategoryViewDelegate {
     func setupCollectionViewDelegate() -> UICollectionViewDelegate {
         self
     }
@@ -144,7 +144,7 @@ extension MoviesViewController: CategoryViewDelegate {
 
 // MARK: - UICollectionViewDataSource
 
-extension MoviesViewController: UICollectionViewDataSource {
+extension MovieListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         MovieCategory.allCases.count
     }
@@ -164,7 +164,7 @@ extension MoviesViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 
-extension MoviesViewController: UICollectionViewDelegate {
+extension MovieListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         loadData(category: MovieCategory.allCases[indexPath.row])
     }

@@ -2,43 +2,35 @@
 //  MovieDetailsView.swift
 //  Films
 //
-//  Created by iOS_Coder on 10.03.2021.
+//  Created by iOS_Coder on 07.05.2021.
 //
 
 import UIKit
 
+protocol MovieDetailsViewDelegate: AnyObject {
+    func setupTableViewDelegate() -> UITableViewDelegate
+    func setupTableViewDataSource() -> UITableViewDataSource
+}
+
 final class MovieDetailsView: UIView {
-    // MARK: - Private properties
+    // MARK: - VisualComponents
 
-    private let movieImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+    private(set) var tableView = UITableView()
 
-    private let movieNameLabel: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 20)
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        return label
-    }()
+    // MARK: - Public properties
 
-    private let movieDescriptionLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 15)
-        label.numberOfLines = 0
-        return label
-    }()
+    weak var delegate: MovieDetailsViewDelegate? {
+        didSet {
+            setTableViewDelegateAndDataSource()
+        }
+    }
 
-    private lazy var subViews = [movieImageView, movieNameLabel, movieDescriptionLabel]
-
-    // MARK: - Inits
+    // MARK: - Init
 
     init() {
         super.init(frame: .zero)
 
-        backgroundColor = .systemBackground
+        setupTableView()
     }
 
     @available(*, unavailable)
@@ -46,42 +38,37 @@ final class MovieDetailsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - View life cycle
+    // MARK: - UIView life circle
 
     override func layoutSubviews() {
-        subViews.forEach { addSubview($0) }
+        addSubview(tableView)
 
-        movieImageView.anchor(
+        tableView.anchor(
             top: safeAreaLayoutGuide.topAnchor,
-            left: leftAnchor,
-            right: rightAnchor,
-            paddingTop: 10,
-            height: bounds.height / 2
-        )
-        movieNameLabel.anchor(
-            top: movieImageView.bottomAnchor,
-            left: leftAnchor,
-            right: rightAnchor,
-            paddingTop: 10,
-            height: 50
-        )
-        movieDescriptionLabel.anchor(
-            top: movieNameLabel.bottomAnchor,
-            bottom: bottomAnchor,
-            left: leftAnchor,
-            right: rightAnchor,
-            paddingTop: 10,
-            paddingBottom: 10,
-            paddingLeft: 10,
-            paddingRight: 10
+            bottom: safeAreaLayoutGuide.bottomAnchor,
+            leading: leadingAnchor,
+            trailing: trailingAnchor
         )
     }
 
-    // MARK: - Public methods
+    // MARK: - PrivateMethods
 
-    func setupUI(movie: Movie, image: UIImage?) {
-        movieImageView.image = image
-        movieNameLabel.text = movie.title
-        movieDescriptionLabel.text = movie.overview
+    private func setupTableView() {
+        tableView.showsVerticalScrollIndicator = false
+//        backgroundColor = .systemBackground
+
+        tableView.register(
+            MovieDetailsImagesTableViewCell.self,
+            forCellReuseIdentifier: MovieDetailsImagesTableViewCell.id
+        )
+        tableView.register(
+            MovieDetailsDescriptionTableViewCell.self,
+            forCellReuseIdentifier: MovieDetailsDescriptionTableViewCell.id
+        )
+    }
+
+    private func setTableViewDelegateAndDataSource() {
+        tableView.delegate = delegate?.setupTableViewDelegate()
+        tableView.dataSource = delegate?.setupTableViewDataSource()
     }
 }

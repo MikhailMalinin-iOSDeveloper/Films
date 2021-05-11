@@ -7,23 +7,23 @@
 
 import UIKit
 
-protocol MoviesViewDelegate: AnyObject {
+protocol MovieListViewDelegate: AnyObject {
     func setupTableViewDelegate() -> UITableViewDelegate
     func setupTableViewDataSource() -> UITableViewDataSource
 }
 
-final class MoviesView: UIView {
+final class MovieListView: UIView {
     // MARK: - VisualComponents
 
-    private let tableView = UITableView(frame: .zero, style: .plain)
+    private(set) var tableView = UITableView(frame: .zero, style: .plain)
 
     // MARK: - Public properties
 
-    weak var delegate: MoviesViewDelegate?
+    weak var delegate: MovieListViewDelegate?
 
     // MARK: - Inits
 
-    init(withCellId id: MovieCellId) {
+    init(withCellId id: String) {
         super.init(frame: .zero)
 
         setupView(withCellId: id)
@@ -44,23 +44,17 @@ final class MoviesView: UIView {
         tableView.anchor(
             top: safeAreaLayoutGuide.topAnchor,
             bottom: bottomAnchor,
-            left: leftAnchor,
-            right: rightAnchor
+            leading: leadingAnchor,
+            trailing: trailingAnchor
         )
-    }
-
-    // MARK: - Public Methods
-
-    func reloadTableView() {
-        tableView.reloadData()
     }
 
     // MARK: - PrivateMethods
 
-    private func setupView(withCellId id: MovieCellId) {
+    private func setupView(withCellId id: String) {
         backgroundColor = .systemBackground
 
-        tableView.register(MoviesTableViewCell.self, forCellReuseIdentifier: id.rawValue)
+        tableView.register(MovieListTableViewCell.self, forCellReuseIdentifier: id)
     }
 
     private func setTableViewDelegateAndDataSource() {
