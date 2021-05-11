@@ -19,10 +19,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
 
-        let moviesVC = MoviesViewController()
-        let moviesNavController = UINavigationController(rootViewController: moviesVC)
+        let navController = UINavigationController()
+        let moduleBuilder = ModuleBuilder()
+        let coordinator = MovieListCoordinator(navigationController: navController, moduleBuilder: moduleBuilder)
+        coordinator.start()
 
-        window.rootViewController = moviesNavController
+        window.rootViewController = navController
 
         self.window = window
 
