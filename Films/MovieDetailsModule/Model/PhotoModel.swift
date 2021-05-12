@@ -15,12 +15,10 @@ struct PhotoRequestModel: Codable {
 
 /// Photo model
 struct Photo: Codable {
-    let filmId: Int
     let aspectRatio: Double
     let filePath: String
 
     enum CodingKeys: String, CodingKey {
-        case filmId
         case aspectRatio = "aspect_ratio"
         case filePath = "file_path"
     }

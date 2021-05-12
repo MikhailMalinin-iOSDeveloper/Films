@@ -11,7 +11,7 @@ import UIKit
 protocol MovieListViewModelProtocol {
     var movies: [Movie]? { get set }
     var update: (() -> ())? { get set }
-    init(networkService: NetworkServiceProtocol, imageProxy: ImageProxyServiceProtocol)
+    init(networkService: MovieNetworkServiceProtocol, imageProxy: ImageProxyServiceProtocol)
     func fetchMovies(for category: MovieCategory)
     func fetchImage(for path: String, completion: @escaping ((Result<UIImage?, Error>) -> ()))
 }
@@ -20,10 +20,10 @@ final class MovieListViewModel: MovieListViewModelProtocol {
     var movies: [Movie]?
     var update: (() -> ())?
 
-    private let networkService: NetworkServiceProtocol
+    private let networkService: MovieNetworkServiceProtocol
     private let imageProxy: ImageProxyServiceProtocol
 
-    init(networkService: NetworkServiceProtocol, imageProxy: ImageProxyServiceProtocol) {
+    init(networkService: MovieNetworkServiceProtocol, imageProxy: ImageProxyServiceProtocol) {
         self.networkService = networkService
         self.imageProxy = imageProxy
     }

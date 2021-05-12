@@ -13,24 +13,27 @@ protocol ModuleBuilderProtocol {
 }
 
 final class ModuleBuilder: ModuleBuilderProtocol {
-    private let networkService = NetworkService()
+    private let movieNetworkService = MovieNetworkService()
+    private let photoNetworkService = PhotoNetworkService()
     private let cacheService = ImagesCacheService()
 
     func createMovieListModule(coordinator: MovieListCoordinatorProtocol) -> UIViewController {
         let viewController = MovieListViewController()
-        let imageProxyService = ImageProxyService(networkService: networkService, cacheService: cacheService)
-        let movieListViewModel = MovieListViewModel(networkService: networkService, imageProxy: imageProxyService)
-        viewController.inject(viewModel: movieListViewModel)
-        viewController.coordinator = coordinator
+        let imageProxyService = ImageProxyService(networkService: photoNetworkService, cacheService: cacheService)
+        let movieListViewModel = MovieListViewModel(networkService: movieNetworkService, imageProxy: imageProxyService)
+        viewController.inject(viewModel: movieListViewModel, coordinator: coordinator)
         return viewController
     }
 
     func createMovieDetailModule(movie: Movie?, coordinator: MovieListCoordinatorProtocol) -> UIViewController {
         let viewController = MovieDetailsViewController()
-        let imageProxyService = ImageProxyService(networkService: networkService, cacheService: cacheService)
-        let movieDetailsViewModel = MovieDetailsViewModel(networkService: networkService, imageProxy: imageProxyService)
-        viewController.inject(viewModel: movieDetailsViewModel)
-        viewController.coordinator = coordinator
+        let imageProxyService = ImageProxyService(networkService: photoNetworkService, cacheService: cacheService)
+        let movieDetailsViewModel = MovieDetailsViewModel(
+            movie: movie,
+            networkService: movieNetworkService,
+            imageProxy: imageProxyService
+        )
+        viewController.inject(viewModel: movieDetailsViewModel, coordinator: coordinator)
         return viewController
     }
 }

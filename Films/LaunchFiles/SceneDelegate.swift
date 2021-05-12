@@ -16,19 +16,15 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         options connectionOptions: UIScene.ConnectionOptions
     ) {
         guard let windowScene = scene as? UIWindowScene else { return }
-
-        let window = UIWindow(windowScene: windowScene)
+        window = UIWindow(windowScene: windowScene)
 
         let navController = UINavigationController()
         let moduleBuilder = ModuleBuilder()
         let coordinator = MovieListCoordinator(navigationController: navController, moduleBuilder: moduleBuilder)
         coordinator.start()
 
-        window.rootViewController = navController
-
-        self.window = window
-
-        window.makeKeyAndVisible()
+        window?.rootViewController = navController
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
