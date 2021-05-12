@@ -15,12 +15,12 @@ protocol ImageProxyServiceProtocol {
 final class ImageProxyService: ImageProxyServiceProtocol {
     // MARK: - Private properties
 
-    private let networkService: LoadImageServiceProtocol
+    private let networkService: PhotoNetworkServiceProtocol
     private let cacheService: ImagesCacheServiceProtocol
 
     // MARK: - Init
 
-    internal init(networkService: LoadImageServiceProtocol, cacheService: ImagesCacheServiceProtocol) {
+    internal init(networkService: PhotoNetworkServiceProtocol, cacheService: ImagesCacheServiceProtocol) {
         self.networkService = networkService
         self.cacheService = cacheService
     }
