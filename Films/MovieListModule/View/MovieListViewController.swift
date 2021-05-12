@@ -7,19 +7,15 @@
 
 import UIKit
 
-/// Movie Cell Id
-enum MovieCellId: String {
-    case movieCell
-}
+final class MovieListViewController: UIViewController {
+    // MARK: - Public properties
 
-final class MoviesViewController: UIViewController {
+    var coordinator: MovieListCoordinatorProtocol?
+
     // MARK: - Private properties
 
-    private let moviesView = MoviesView(withCellId: .movieCell)
-    private let cellId = "movieCell"
-    private var movies: [Movie] = []
-    private let imageService = ImageService()
-    private lazy var imageProxy = ImageProxy(service: imageService)
+    private var viewModel: MovieListViewModelProtocol?
+    private let moviesView = MovieListView()
 
     // MARK: - ViewController Life cycle
 
@@ -31,26 +27,35 @@ final class MoviesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Movies"
+        setup()
+    }
 
-        loadData(category: .popular)
+    // MARK: - Public methods
+
+    func inject(viewModel: MovieListViewModelProtocol, coordinator: MovieListCoordinatorProtocol) {
+        self.viewModel = viewModel
+        self.coordinator = coordinator
     }
 
     // MARK: - Private Methods
 
-    private func loadData(category: MovieCategory) {
-        NetworkManager().fetchMovies(category: category) { [weak self] movieResponse in
-            self?.movies = movieResponse.movies
-            DispatchQueue.main.async {
-                self?.moviesView.reloadTableView()
-            }
+    private func setup() {
+        title = "Movies"
+
+        viewModel?.fetchMovies(for: .popular)
+        updateView()
+    }
+
+    private func updateView() {
+        viewModel?.update = { [weak self] in
+            self?.moviesView.tableView.reloadData()
         }
     }
 }
 
 // MARK: - MoviesViewDelegate
 
-extension MoviesViewController: MoviesViewDelegate {
+extension MovieListViewController: MovieListViewDelegate {
     func setupTableViewDelegate() -> UITableViewDelegate {
         self
     }
@@ -62,13 +67,14 @@ extension MoviesViewController: MoviesViewDelegate {
 
 // MARK: - MoviesTableViewCellDelegate
 
-extension MoviesViewController: MoviesTableViewCellDelegate {
-    func getImage(forMovie movie: Movie, completion: @escaping (UIImage?) -> ()) {
-        imageProxy.loadImage(by: movie.posterPath) { data in
-            if let data = data {
-                DispatchQueue.main.async {
-                    completion(UIImage(data: data))
-                }
+extension MovieListViewController: MovieListTableViewCellDelegate {
+    func fetchImage(by path: String, completion: @escaping (UIImage?) -> ()) {
+        viewModel?.fetchImage(for: path) { [weak self] result in
+            switch result {
+            case let .success(image):
+                completion(image)
+            case let .failure(error):
+                self?.showError(error)
             }
         }
     }
@@ -76,15 +82,18 @@ extension MoviesViewController: MoviesTableViewCellDelegate {
 
 // MARK: - UITableViewDataSource
 
-extension MoviesViewController: UITableViewDataSource {
+extension MovieListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        movies.count
+        viewModel?.movies?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? MoviesTableViewCell
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: MovieListTableViewCell.id,
+            for: indexPath
+        ) as? MovieListTableViewCell
         cell?.delegate = self
-        cell?.setupCell(movie: movies[indexPath.row])
+        cell?.setupCell(movie: viewModel?.movies?[indexPath.row])
         return cell ?? UITableViewCell()
     }
 
@@ -95,18 +104,13 @@ extension MoviesViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension MoviesViewController: UITableViewDelegate {
+extension MovieListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         150
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let movieDetailsVC = MovieDetailsViewController()
-        let movie = movies[indexPath.row]
-        if let imageData = imageProxy.cache[movie.posterPath] {
-            movieDetailsVC.setupUI(movie: movie, imageData: imageData)
-        }
-        navigationController?.pushViewController(movieDetailsVC, animated: true)
+        coordinator?.toDetail(for: viewModel?.movies?[indexPath.row])
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -117,7 +121,7 @@ extension MoviesViewController: UITableViewDelegate {
     }
 }
 
-extension MoviesViewController: CategoryViewDelegate {
+extension MovieListViewController: CategoryViewDelegate {
     func setupCollectionViewDelegate() -> UICollectionViewDelegate {
         self
     }
@@ -129,7 +133,7 @@ extension MoviesViewController: CategoryViewDelegate {
 
 // MARK: - UICollectionViewDataSource
 
-extension MoviesViewController: UICollectionViewDataSource {
+extension MovieListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         MovieCategory.allCases.count
     }
@@ -139,7 +143,7 @@ extension MoviesViewController: UICollectionViewDataSource {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: CategoryCollectionCellId.categoryCell.rawValue,
+            withReuseIdentifier: CategoryCollectionViewCell.id,
             for: indexPath
         ) as? CategoryCollectionViewCell
         cell?.setup(text: MovieCategory.allCases[indexPath.row].caseName())
@@ -149,8 +153,8 @@ extension MoviesViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 
-extension MoviesViewController: UICollectionViewDelegate {
+extension MovieListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        loadData(category: MovieCategory.allCases[indexPath.row])
+        viewModel?.fetchMovies(for: MovieCategory.allCases[indexPath.row])
     }
 }

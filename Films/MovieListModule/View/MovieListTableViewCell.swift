@@ -7,20 +7,22 @@
 
 import UIKit
 
-protocol MoviesTableViewCellDelegate: AnyObject {
-    func getImage(forMovie movie: Movie, completion: @escaping (UIImage?) -> ())
+protocol MovieListTableViewCellDelegate: AnyObject {
+    func fetchImage(by path: String, completion: @escaping (UIImage?) -> ())
 }
 
-final class MoviesTableViewCell: UITableViewCell {
+final class MovieListTableViewCell: UITableViewCell {
+    static let id = "MovieListTableViewCell"
+
     // MARK: - Public properties
 
-    weak var delegate: MoviesTableViewCellDelegate?
+    weak var delegate: MovieListTableViewCellDelegate?
 
     // MARK: - Visual Components
 
     private let movieImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -61,7 +63,7 @@ final class MoviesTableViewCell: UITableViewCell {
 
     private let cellView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         return view
@@ -96,12 +98,12 @@ final class MoviesTableViewCell: UITableViewCell {
 
     // MARK: - Public methods
 
-    func setupCell(movie: Movie) {
-        movieRatingLabel.text = "\(movie.voteAverage)".uppercased()
-        movieNameLabel.text = movie.title
-        movieDescriptionLabel.text = movie.overview
-        movieReleaseDateLabel.text = movie.releaseDate
-        delegate?.getImage(forMovie: movie) { [weak self] image in
+    func setupCell(movie: Movie?) {
+        movieRatingLabel.text = "\(movie?.voteAverage ?? 0)".uppercased()
+        movieNameLabel.text = movie?.title
+        movieDescriptionLabel.text = movie?.overview
+        movieReleaseDateLabel.text = movie?.releaseDate
+        delegate?.fetchImage(by: movie?.posterPath ?? "") { [weak self] image in
             self?.movieImageView.image = image
         }
     }
@@ -122,17 +124,17 @@ final class MoviesTableViewCell: UITableViewCell {
         movieImageView.anchor(
             top: cellView.topAnchor,
             bottom: cellView.bottomAnchor,
-            left: cellView.leftAnchor,
-            width: bounds.width / 3
+            leading: cellView.leadingAnchor,
+            width: bounds.width / 4
         )
     }
 
     private func setMovieRatingLabelLayout() {
         movieRatingLabel.anchor(
             bottom: movieImageView.bottomAnchor,
-            right: movieImageView.rightAnchor,
+            trailing: movieImageView.trailingAnchor,
             paddingBottom: 5,
-            paddingRight: 5,
+            paddingTrailing: 5,
             width: 40,
             height: 20
         )
@@ -141,11 +143,11 @@ final class MoviesTableViewCell: UITableViewCell {
     private func setMovieNameLayout() {
         movieNameLabel.anchor(
             top: cellView.topAnchor,
-            left: movieImageView.rightAnchor,
-            right: cellView.rightAnchor,
+            leading: movieImageView.trailingAnchor,
+            trailing: cellView.trailingAnchor,
             paddingTop: 5,
-            paddingLeft: 10,
-            paddingRight: 10,
+            paddingLeading: 10,
+            paddingTrailing: 10,
             height: 20
         )
     }
@@ -153,10 +155,10 @@ final class MoviesTableViewCell: UITableViewCell {
     private func setMovieDescriptionLabelLayout() {
         movieDescriptionLabel.anchor(
             top: movieNameLabel.bottomAnchor,
-            left: movieImageView.rightAnchor,
-            right: cellView.rightAnchor,
-            paddingLeft: 10,
-            paddingRight: 10,
+            leading: movieImageView.trailingAnchor,
+            trailing: cellView.trailingAnchor,
+            paddingLeading: 10,
+            paddingTrailing: 10,
             height: bounds.height * 0.6
         )
     }
@@ -165,11 +167,11 @@ final class MoviesTableViewCell: UITableViewCell {
         movieReleaseDateLabel.anchor(
             top: movieDescriptionLabel.bottomAnchor,
             bottom: cellView.bottomAnchor,
-            left: movieImageView.rightAnchor,
-            right: cellView.rightAnchor,
+            leading: movieImageView.trailingAnchor,
+            trailing: cellView.trailingAnchor,
             paddingBottom: 5,
-            paddingLeft: 10,
-            paddingRight: 10
+            paddingLeading: 10,
+            paddingTrailing: 10
         )
     }
 
@@ -177,8 +179,8 @@ final class MoviesTableViewCell: UITableViewCell {
         cellView.anchor(
             top: shadowView.topAnchor,
             bottom: shadowView.bottomAnchor,
-            left: shadowView.leftAnchor,
-            right: shadowView.rightAnchor
+            leading: shadowView.leadingAnchor,
+            trailing: shadowView.trailingAnchor
         )
     }
 
@@ -186,11 +188,11 @@ final class MoviesTableViewCell: UITableViewCell {
         shadowView.anchor(
             top: topAnchor,
             bottom: bottomAnchor,
-            left: leftAnchor,
-            right: rightAnchor,
+            leading: leadingAnchor,
+            trailing: trailingAnchor,
             paddingTop: 15,
-            paddingLeft: 10,
-            paddingRight: 10
+            paddingLeading: 10,
+            paddingTrailing: 10
         )
     }
 }

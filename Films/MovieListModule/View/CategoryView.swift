@@ -7,11 +7,6 @@
 
 import UIKit
 
-/// CategoryCollectionCellId
-enum CategoryCollectionCellId: String {
-    case categoryCell
-}
-
 /// CategoryViewDelegate
 protocol CategoryViewDelegate: AnyObject {
     func setupCollectionViewDelegate() -> UICollectionViewDelegate
@@ -37,10 +32,10 @@ final class CategoryView: UIView {
         categoryCollectionView?.anchor(
             top: topAnchor,
             bottom: bottomAnchor,
-            left: leftAnchor,
-            right: rightAnchor,
-            paddingLeft: 10,
-            paddingRight: 10
+            leading: leadingAnchor,
+            trailing: trailingAnchor,
+            paddingLeading: 10,
+            paddingTrailing: 10
         )
     }
 
@@ -62,7 +57,7 @@ final class CategoryView: UIView {
     private func setupCollectionView() {
         categoryCollectionView?.register(
             CategoryCollectionViewCell.self,
-            forCellWithReuseIdentifier: CategoryCollectionCellId.categoryCell.rawValue
+            forCellWithReuseIdentifier: CategoryCollectionViewCell.id
         )
         categoryCollectionView?.delegate = delegate?.setupCollectionViewDelegate()
         categoryCollectionView?.dataSource = delegate?.setupCollectionViewDataSource()
