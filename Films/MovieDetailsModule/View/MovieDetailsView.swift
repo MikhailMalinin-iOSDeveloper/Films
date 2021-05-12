@@ -55,15 +55,14 @@ final class MovieDetailsView: UIView {
 
     private func setupTableView() {
         tableView.showsVerticalScrollIndicator = false
-//        backgroundColor = .systemBackground
 
-        tableView.register(
-            MovieDetailsImagesTableViewCell.self,
-            forCellReuseIdentifier: MovieDetailsImagesTableViewCell.id
-        )
         tableView.register(
             MovieDetailsDescriptionTableViewCell.self,
             forCellReuseIdentifier: MovieDetailsDescriptionTableViewCell.id
+        )
+        tableView.register(
+            MovieDetailsPhotosTableViewCell.self,
+            forCellReuseIdentifier: MovieDetailsPhotosTableViewCell.id
         )
     }
 

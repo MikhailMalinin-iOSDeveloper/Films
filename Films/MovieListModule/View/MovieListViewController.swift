@@ -10,7 +10,7 @@ import UIKit
 final class MovieListViewController: UIViewController {
     // MARK: - Public properties
 
-    weak var coordinator: MovieListCoordinatorProtocol?
+    var coordinator: MovieListCoordinatorProtocol?
 
     // MARK: - Private properties
 
@@ -27,22 +27,24 @@ final class MovieListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Movies"
-        inject(viewModel: MovieListViewModel(
-            networkService: NetworkService(),
-            imageProxy: ImageProxyService(networkService: NetworkService(), cacheService: ImagesCacheService())
-        ))
-        viewModel?.fetchMovies(for: .popular)
-        updateView()
+        setup()
     }
 
     // MARK: - Public methods
 
-    func inject(viewModel: MovieListViewModelProtocol) {
+    func inject(viewModel: MovieListViewModelProtocol, coordinator: MovieListCoordinatorProtocol) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
     }
 
     // MARK: - Private Methods
+
+    private func setup() {
+        title = "Movies"
+
+        viewModel?.fetchMovies(for: .popular)
+        updateView()
+    }
 
     private func updateView() {
         viewModel?.update = { [weak self] in

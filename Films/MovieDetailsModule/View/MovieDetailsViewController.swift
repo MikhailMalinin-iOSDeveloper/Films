@@ -15,7 +15,6 @@ final class MovieDetailsViewController: UIViewController {
     // MARK: - Private properties
 
     private let movieDetailsView = MovieDetailsView()
-
     private var viewModel: MovieDetailsViewModelProtocol?
 
     // MARK: - ViewController life cycle
@@ -27,17 +26,30 @@ final class MovieDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setup()
     }
 
     // MARK: - Public methods
 
-//    func setupUI(movie: Movie) {
-//        movieDetailsView
-//        movieDetailsView.setupUI(movie: movie, image: image)
-//    }
-
-    func inject(viewModel: MovieDetailsViewModelProtocol) {
+    func inject(viewModel: MovieDetailsViewModelProtocol, coordinator: MovieListCoordinatorProtocol) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
+    }
+
+    // MARK: - Private methods
+
+    private func setup() {
+        title = viewModel?.movie?.title
+
+        updateView()
+        viewModel?.setMovie()
+    }
+
+    private func updateView() {
+        viewModel?.update = { [weak self] in
+            self?.movieDetailsView.tableView.reloadData()
+        }
     }
 }
 
@@ -64,10 +76,12 @@ extension MovieDetailsViewController: UITableViewDataSource {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(
-                withIdentifier: MovieDetailsImagesTableViewCell.id,
+                withIdentifier: MovieDetailsPhotosTableViewCell.id,
                 for: indexPath
-            ) as? MovieDetailsImagesTableViewCell
-            cell?.delegate = self
+            ) as? MovieDetailsPhotosTableViewCell
+            if let images = viewModel?.imageArray, !images.isEmpty {
+                cell?.configure(with: images)
+            }
             return cell ?? UITableViewCell()
         case 1:
             let cell = tableView.dequeueReusableCell(
@@ -79,69 +93,5 @@ extension MovieDetailsViewController: UITableViewDataSource {
         default:
             return UITableViewCell()
         }
-    }
-}
-
-// MARK: - MovieDetailsViewDelegate
-
-extension MovieDetailsViewController: MovieDetailsImagesTableViewCellDelegate {
-    func setupCollectionViewDelegate() -> UICollectionViewDelegate {
-        self
-    }
-
-    func setupCollectionViewDataSource() -> UICollectionViewDataSource {
-        self
-    }
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension MovieDetailsViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel?.imageArray.count ?? 0
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: MoviePosterCollectionViewCell.id,
-            for: indexPath
-        ) as? MoviePosterCollectionViewCell
-        if let image = viewModel?.imageArray[indexPath.row] {
-            cell?.setup(with: image)
-        }
-        return cell ?? UICollectionViewCell()
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension MovieDetailsViewController: UICollectionViewDelegate {}
-
-extension MovieDetailsViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        CGSize(width: view.bounds.width, height: view.bounds.height / 2)
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        minimumLineSpacingForSectionAt section: Int
-    ) -> CGFloat {
-        0
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        minimumInteritemSpacingForSectionAt section: Int
-    ) -> CGFloat {
-        0
     }
 }

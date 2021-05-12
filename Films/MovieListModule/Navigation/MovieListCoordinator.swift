@@ -19,6 +19,7 @@ final class MovieListCoordinator: MovieListCoordinatorProtocol {
 
     init(navigationController: UINavigationController, moduleBuilder: ModuleBuilderProtocol) {
         self.navigationController = navigationController
+        self.navigationController.navigationBar.prefersLargeTitles = true
         self.moduleBuilder = moduleBuilder
     }
 
