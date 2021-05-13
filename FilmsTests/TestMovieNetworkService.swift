@@ -8,61 +8,10 @@
 @testable import Films
 import XCTest
 
-final class MockMovieNetworkService: MovieNetworkServiceProtocol {
-    private var movies: [Movie]?
-    private var photos: [Photo]?
-
-    init() {}
-
-    init(movies: [Movie]) {
-        self.movies = movies
-    }
-
-    init(photos: [Photo]) {
-        self.photos = photos
-    }
-
-    func fetchMovies(category: MovieCategory, completion: @escaping (Result<[Movie], Error>) -> ()) {
-        if let movies = movies {
-            completion(.success(movies))
-        } else {
-            let error = NSError(domain: "", code: 0, userInfo: nil)
-            completion(.failure(error))
-        }
-    }
-
-    func loadPhotos(for movieId: Int, completion: @escaping (Result<[Photo]?, Error>) -> ()) {
-        if let photos = photos {
-            completion(.success(photos))
-        } else {
-            let error = NSError(domain: "", code: 0, userInfo: nil)
-            completion(.failure(error))
-        }
-    }
-}
-
-final class MockImageProxyService: ImageProxyServiceProtocol {
-    private var image: UIImage?
-
-    init() {}
-
-    init(image: UIImage?) {
-        self.image = image
-    }
-
-    func getImage(by path: String?, completion: @escaping (Result<UIImage?, Error>) -> ()) {
-        if let image = image {
-            completion(.success(image))
-        } else {
-            let error = NSError(domain: "", code: 0, userInfo: nil)
-            completion(.failure(error))
-        }
-    }
-}
-
 final class TestMovieNetworkService: XCTestCase {
     private var networkService: MovieNetworkServiceProtocol!
     private var imageProxy: ImageProxyServiceProtocol!
+    private var coreDataService: CoreDataServiceProtocol!
     private var viewModel: MovieListViewModelProtocol!
     private var movies: [Movie]!
     private var photos: [Photo]!
@@ -72,6 +21,7 @@ final class TestMovieNetworkService: XCTestCase {
 
         networkService = MockMovieNetworkService()
         imageProxy = MockImageProxyService()
+        coreDataService = MockCoreDataService()
         movies = []
         photos = []
     }
@@ -81,6 +31,7 @@ final class TestMovieNetworkService: XCTestCase {
 
         networkService = nil
         imageProxy = nil
+        coreDataService = nil
         viewModel = nil
         movies = nil
         photos = nil
@@ -101,7 +52,11 @@ final class TestMovieNetworkService: XCTestCase {
 
         networkService = MockMovieNetworkService(movies: movies)
 
-        viewModel = MovieListViewModel(networkService: networkService, imageProxy: imageProxy)
+        viewModel = MovieListViewModel(
+            networkService: networkService,
+            imageProxy: imageProxy,
+            coreDataService: coreDataService
+        )
 
         var catchMovies: [Movie]?
 
@@ -116,7 +71,11 @@ final class TestMovieNetworkService: XCTestCase {
     }
 
     func testGetFailureMovies() {
-        viewModel = MovieListViewModel(networkService: networkService, imageProxy: imageProxy)
+        viewModel = MovieListViewModel(
+            networkService: networkService,
+            imageProxy: imageProxy,
+            coreDataService: coreDataService
+        )
 
         var catchError: Error?
 
@@ -177,7 +136,11 @@ final class TestMovieNetworkService: XCTestCase {
 
         imageProxy = MockImageProxyService(image: image)
 
-        viewModel = MovieListViewModel(networkService: networkService, imageProxy: imageProxy)
+        viewModel = MovieListViewModel(
+            networkService: networkService,
+            imageProxy: imageProxy,
+            coreDataService: coreDataService
+        )
 
         var catchImage: UIImage?
 
@@ -194,7 +157,11 @@ final class TestMovieNetworkService: XCTestCase {
     }
 
     func testGetFailureImages() {
-        viewModel = MovieListViewModel(networkService: networkService, imageProxy: imageProxy)
+        viewModel = MovieListViewModel(
+            networkService: networkService,
+            imageProxy: imageProxy,
+            coreDataService: coreDataService
+        )
 
         var catchError: Error?
 

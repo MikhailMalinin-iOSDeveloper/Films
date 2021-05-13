@@ -36,6 +36,15 @@
 		C3A13F06264C228F00E80C80 /* MovieDetailsPhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F05264C228F00E80C80 /* MovieDetailsPhotosTableViewCell.swift */; };
 		C3A13F0E264D07CE00E80C80 /* FilmsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F0D264D07CE00E80C80 /* FilmsUITests.swift */; };
 		C3A13F24264D267500E80C80 /* TestMovieNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F23264D267500E80C80 /* TestMovieNetworkService.swift */; };
+		C3A13F2C264D86E900E80C80 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F2A264D86E800E80C80 /* CoreData.xcdatamodeld */; };
+		C3A13F3C264D8C2700E80C80 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F3B264D8C2700E80C80 /* CoreDataStack.swift */; };
+		C3A13F3E264D8CB900E80C80 /* DispatchQueue+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F3D264D8CB900E80C80 /* DispatchQueue+Ext.swift */; };
+		C3A13F63264DA32A00E80C80 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F62264DA32A00E80C80 /* CoreDataService.swift */; };
+		C3A13F66264DA45500E80C80 /* MovieEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F64264DA45500E80C80 /* MovieEntity+CoreDataClass.swift */; };
+		C3A13F67264DA45500E80C80 /* MovieEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F65264DA45500E80C80 /* MovieEntity+CoreDataProperties.swift */; };
+		C3A13F6A264DCC2100E80C80 /* MockMovieNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F69264DCC2000E80C80 /* MockMovieNetworkService.swift */; };
+		C3A13F6C264DCC5D00E80C80 /* MockImageProxyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F6B264DCC5D00E80C80 /* MockImageProxyService.swift */; };
+		C3A13F6E264DCCAF00E80C80 /* MockCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F6D264DCCAF00E80C80 /* MockCoreDataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +100,15 @@
 		C3A13F19264D260E00E80C80 /* FilmsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FilmsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3A13F1D264D260F00E80C80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3A13F23264D267500E80C80 /* TestMovieNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMovieNetworkService.swift; sourceTree = "<group>"; };
+		C3A13F2B264D86E800E80C80 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
+		C3A13F3B264D8C2700E80C80 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		C3A13F3D264D8CB900E80C80 /* DispatchQueue+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Ext.swift"; sourceTree = "<group>"; };
+		C3A13F62264DA32A00E80C80 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		C3A13F64264DA45500E80C80 /* MovieEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		C3A13F65264DA45500E80C80 /* MovieEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		C3A13F69264DCC2000E80C80 /* MockMovieNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMovieNetworkService.swift; sourceTree = "<group>"; };
+		C3A13F6B264DCC5D00E80C80 /* MockImageProxyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageProxyService.swift; sourceTree = "<group>"; };
+		C3A13F6D264DCCAF00E80C80 /* MockCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCoreDataService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,13 +136,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C34C890925F81AF8008BBB28 /* NetworkService */ = {
+		C34C890925F81AF8008BBB28 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				C3A13F04264C028200E80C80 /* MovieService */,
-				C3A13F03264C027400E80C80 /* PhotoService */,
+				C3A13F29264D86E800E80C80 /* CoreDataService */,
+				C3A13F3A264D89E100E80C80 /* NetworkServices */,
 			);
-			path = NetworkService;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		C36656D825F1502000C9A857 = {
@@ -155,7 +173,7 @@
 				C3A13EC42649779600E80C80 /* MovieListModule */,
 				C3A13EC5264977A300E80C80 /* MovieDetailsModule */,
 				C3A13EF6264B0AE700E80C80 /* Navigation */,
-				C34C890925F81AF8008BBB28 /* NetworkService */,
+				C34C890925F81AF8008BBB28 /* Services */,
 				C366571325F64D3800C9A857 /* Extensions */,
 				C366570625F646E200C9A857 /* SupportingFiles */,
 			);
@@ -186,6 +204,7 @@
 			children = (
 				C3A13EDA26498F5300E80C80 /* AnchorExtension.swift */,
 				C3A13ED22649890200E80C80 /* UIViewController+Ext.swift */,
+				C3A13F3D264D8CB900E80C80 /* DispatchQueue+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -321,10 +340,50 @@
 		C3A13F1A264D260E00E80C80 /* FilmsTests */ = {
 			isa = PBXGroup;
 			children = (
+				C3A13F68264DCC0D00E80C80 /* Mocks */,
 				C3A13F23264D267500E80C80 /* TestMovieNetworkService.swift */,
 				C3A13F1D264D260F00E80C80 /* Info.plist */,
 			);
 			path = FilmsTests;
+			sourceTree = "<group>";
+		};
+		C3A13F29264D86E800E80C80 /* CoreDataService */ = {
+			isa = PBXGroup;
+			children = (
+				C3A13F62264DA32A00E80C80 /* CoreDataService.swift */,
+				C3A13F3B264D8C2700E80C80 /* CoreDataStack.swift */,
+				C3A13F35264D897100E80C80 /* Models */,
+				C3A13F2A264D86E800E80C80 /* CoreData.xcdatamodeld */,
+			);
+			path = CoreDataService;
+			sourceTree = "<group>";
+		};
+		C3A13F35264D897100E80C80 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C3A13F64264DA45500E80C80 /* MovieEntity+CoreDataClass.swift */,
+				C3A13F65264DA45500E80C80 /* MovieEntity+CoreDataProperties.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C3A13F3A264D89E100E80C80 /* NetworkServices */ = {
+			isa = PBXGroup;
+			children = (
+				C3A13F04264C028200E80C80 /* MovieService */,
+				C3A13F03264C027400E80C80 /* PhotoService */,
+			);
+			path = NetworkServices;
+			sourceTree = "<group>";
+		};
+		C3A13F68264DCC0D00E80C80 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				C3A13F69264DCC2000E80C80 /* MockMovieNetworkService.swift */,
+				C3A13F6B264DCC5D00E80C80 /* MockImageProxyService.swift */,
+				C3A13F6D264DCCAF00E80C80 /* MockCoreDataService.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -500,6 +559,7 @@
 				C3A13F06264C228F00E80C80 /* MovieDetailsPhotosTableViewCell.swift in Sources */,
 				C3A13F00264B17E300E80C80 /* MovieDetailsViewModel.swift in Sources */,
 				C3A13EF3264990A900E80C80 /* MovieDetailsViewController.swift in Sources */,
+				C3A13F3E264D8CB900E80C80 /* DispatchQueue+Ext.swift in Sources */,
 				C3A13ED32649890200E80C80 /* UIViewController+Ext.swift in Sources */,
 				C3A13ED12649831600E80C80 /* ImagesCacheService.swift in Sources */,
 				C3A13EDB26498F5300E80C80 /* AnchorExtension.swift in Sources */,
@@ -512,16 +572,21 @@
 				C3A13EFD264B14B400E80C80 /* ModuleBuilder.swift in Sources */,
 				C36656E525F1502000C9A857 /* AppDelegate.swift in Sources */,
 				C3A13EEC26498FC400E80C80 /* MovieDetailsView.swift in Sources */,
+				C3A13F63264DA32A00E80C80 /* CoreDataService.swift in Sources */,
 				C3A13F02264C01A200E80C80 /* PhotoNetworkService.swift in Sources */,
+				C3A13F2C264D86E900E80C80 /* CoreData.xcdatamodeld in Sources */,
 				C3A13EE426498FAA00E80C80 /* MovieListTableViewCell.swift in Sources */,
 				C3A13ECD2649789700E80C80 /* MovieCatagory.swift in Sources */,
+				C3A13F67264DA45500E80C80 /* MovieEntity+CoreDataProperties.swift in Sources */,
 				C3094D8B25FBD3D9004CB9F4 /* ImageProxyService.swift in Sources */,
 				C3A13EF12649909F00E80C80 /* MovieListViewController.swift in Sources */,
 				C34C890B25F81B19008BBB28 /* MovieNetworkService.swift in Sources */,
 				C3A13EF5264A747E00E80C80 /* MovieListViewModel.swift in Sources */,
+				C3A13F66264DA45500E80C80 /* MovieEntity+CoreDataClass.swift in Sources */,
 				C3A13ECF26497A4200E80C80 /* PhotoModel.swift in Sources */,
 				C36656E725F1502000C9A857 /* SceneDelegate.swift in Sources */,
 				C3A13EE226498FAA00E80C80 /* CategoryView.swift in Sources */,
+				C3A13F3C264D8C2700E80C80 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +603,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3A13F24264D267500E80C80 /* TestMovieNetworkService.swift in Sources */,
+				C3A13F6C264DCC5D00E80C80 /* MockImageProxyService.swift in Sources */,
+				C3A13F6E264DCCAF00E80C80 /* MockCoreDataService.swift in Sources */,
+				C3A13F6A264DCC2100E80C80 /* MockMovieNetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,6 +914,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C3A13F2A264D86E800E80C80 /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C3A13F2B264D86E800E80C80 /* CoreData.xcdatamodel */,
+			);
+			currentVersion = C3A13F2B264D86E800E80C80 /* CoreData.xcdatamodel */;
+			path = CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C36656D925F1502000C9A857 /* Project object */;
 }
