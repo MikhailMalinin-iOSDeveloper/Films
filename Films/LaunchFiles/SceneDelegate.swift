@@ -26,4 +26,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
     }
+
+    func sceneWillResignActive(_ scene: UIScene) {
+        CoreDataStack.shared.saveToStore()
+    }
+
+    func sceneWillEnterForeground(_ scene: UIScene) {
+        CoreDataStack.shared.saveToStore()
+    }
 }

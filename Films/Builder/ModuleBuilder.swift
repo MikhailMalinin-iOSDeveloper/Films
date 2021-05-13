@@ -20,7 +20,12 @@ final class ModuleBuilder: ModuleBuilderProtocol {
     func createMovieListModule(coordinator: MovieListCoordinatorProtocol) -> UIViewController {
         let viewController = MovieListViewController()
         let imageProxyService = ImageProxyService(networkService: photoNetworkService, cacheService: cacheService)
-        let movieListViewModel = MovieListViewModel(networkService: movieNetworkService, imageProxy: imageProxyService)
+        let coreDataService = CoreDataService()
+        let movieListViewModel = MovieListViewModel(
+            networkService: movieNetworkService,
+            imageProxy: imageProxyService,
+            coreDataService: coreDataService
+        )
         viewController.inject(viewModel: movieListViewModel, coordinator: coordinator)
         return viewController
     }

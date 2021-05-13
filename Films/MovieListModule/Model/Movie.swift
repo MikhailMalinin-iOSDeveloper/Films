@@ -34,6 +34,37 @@ struct Movie: Codable {
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
+
+    init(
+        id: Int,
+        overview: String,
+        popularity: Double,
+        posterPath: String,
+        releaseDate: String,
+        title: String,
+        voteAverage: Double,
+        voteCount: Int
+    ) {
+        self.id = id
+        self.overview = overview
+        self.popularity = popularity
+        self.posterPath = posterPath
+        self.releaseDate = releaseDate
+        self.title = title
+        self.voteAverage = voteAverage
+        self.voteCount = voteCount
+    }
+
+    init(movieEntity: MovieEntity) {
+        id = Int(movieEntity.id)
+        overview = movieEntity.overview
+        popularity = movieEntity.popularity
+        posterPath = movieEntity.posterPath
+        releaseDate = movieEntity.releaseDate
+        title = movieEntity.title
+        voteAverage = movieEntity.voteAverage
+        voteCount = Int(movieEntity.voteCount)
+    }
 }
 
 // enum MovieListModel {
