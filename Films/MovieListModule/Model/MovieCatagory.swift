@@ -9,11 +9,12 @@ import Foundation
 
 /// Movie categories
 enum MovieCategory: String, CaseIterable {
+    case nowPlaying = "now_playing"
     case popular
     case topRated = "top_rated"
     case upcoming
 
-    func caseName() -> String {
+    var caseName: String {
         switch self {
         case .popular:
             return "Popular"
@@ -21,6 +22,8 @@ enum MovieCategory: String, CaseIterable {
             return "Top rated"
         case .upcoming:
             return "Upcoming"
+        case .nowPlaying:
+            return "Now playing"
         }
     }
 }

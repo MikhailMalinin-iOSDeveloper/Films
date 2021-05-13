@@ -29,7 +29,7 @@ final class MovieListCoordinator: MovieListCoordinatorProtocol {
     }
 
     func toDetail(for movie: Movie?) {
-        let movieDetailsViewController = moduleBuilder.createMovieDetailModule(movie: movie, coordinator: self)
+        let movieDetailsViewController = moduleBuilder.createMovieDetailModule(movie: movie)
         navigationController.pushViewController(movieDetailsViewController, animated: true)
     }
 }

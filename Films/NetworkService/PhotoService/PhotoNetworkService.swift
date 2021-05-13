@@ -33,7 +33,9 @@ final class PhotoNetworkService: PhotoNetworkServiceProtocol {
 
         let task = session.dataTask(with: url) { data, _, error in
             if let error = error {
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
             } else if let data = data {
                 DispatchQueue.main.async {
                     completion(.success(data))
