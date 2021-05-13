@@ -9,7 +9,7 @@ import UIKit
 
 protocol ModuleBuilderProtocol {
     func createMovieListModule(coordinator: MovieListCoordinatorProtocol) -> UIViewController
-    func createMovieDetailModule(movie: Movie?, coordinator: MovieListCoordinatorProtocol) -> UIViewController
+    func createMovieDetailModule(movie: Movie?) -> UIViewController
 }
 
 final class ModuleBuilder: ModuleBuilderProtocol {
@@ -20,12 +20,17 @@ final class ModuleBuilder: ModuleBuilderProtocol {
     func createMovieListModule(coordinator: MovieListCoordinatorProtocol) -> UIViewController {
         let viewController = MovieListViewController()
         let imageProxyService = ImageProxyService(networkService: photoNetworkService, cacheService: cacheService)
-        let movieListViewModel = MovieListViewModel(networkService: movieNetworkService, imageProxy: imageProxyService)
+        let coreDataService = CoreDataService()
+        let movieListViewModel = MovieListViewModel(
+            networkService: movieNetworkService,
+            imageProxy: imageProxyService,
+            coreDataService: coreDataService
+        )
         viewController.inject(viewModel: movieListViewModel, coordinator: coordinator)
         return viewController
     }
 
-    func createMovieDetailModule(movie: Movie?, coordinator: MovieListCoordinatorProtocol) -> UIViewController {
+    func createMovieDetailModule(movie: Movie?) -> UIViewController {
         let viewController = MovieDetailsViewController()
         let imageProxyService = ImageProxyService(networkService: photoNetworkService, cacheService: cacheService)
         let movieDetailsViewModel = MovieDetailsViewModel(
@@ -33,7 +38,7 @@ final class ModuleBuilder: ModuleBuilderProtocol {
             networkService: movieNetworkService,
             imageProxy: imageProxyService
         )
-        viewController.inject(viewModel: movieDetailsViewModel, coordinator: coordinator)
+        viewController.inject(viewModel: movieDetailsViewModel)
         return viewController
     }
 }

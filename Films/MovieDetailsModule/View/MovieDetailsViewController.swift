@@ -8,10 +8,6 @@
 import UIKit
 
 final class MovieDetailsViewController: UIViewController {
-    // MARK: - Public properties
-
-    weak var coordinator: MovieListCoordinatorProtocol?
-
     // MARK: - Private properties
 
     private let movieDetailsView = MovieDetailsView()
@@ -32,9 +28,8 @@ final class MovieDetailsViewController: UIViewController {
 
     // MARK: - Public methods
 
-    func inject(viewModel: MovieDetailsViewModelProtocol, coordinator: MovieListCoordinatorProtocol) {
+    func inject(viewModel: MovieDetailsViewModelProtocol) {
         self.viewModel = viewModel
-        self.coordinator = coordinator
     }
 
     // MARK: - Private methods

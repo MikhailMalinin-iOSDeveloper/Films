@@ -42,7 +42,7 @@ final class MovieListViewController: UIViewController {
     private func setup() {
         title = "Movies"
 
-        viewModel?.fetchMovies(for: .popular)
+        viewModel?.fetchMovies(for: .nowPlaying)
         updateView()
     }
 
@@ -146,7 +146,7 @@ extension MovieListViewController: UICollectionViewDataSource {
             withReuseIdentifier: CategoryCollectionViewCell.id,
             for: indexPath
         ) as? CategoryCollectionViewCell
-        cell?.setup(text: MovieCategory.allCases[indexPath.row].caseName())
+        cell?.setup(text: MovieCategory.allCases[indexPath.row].caseName)
         return cell ?? UICollectionViewCell()
     }
 }
