@@ -22,11 +22,12 @@ final class ModuleBuilder: ModuleBuilderProtocol {
         let imageProxyService = ImageProxyService(networkService: photoNetworkService, cacheService: cacheService)
         let coreDataService = CoreDataService()
         let movieListViewModel = MovieListViewModel(
+            coordinator: coordinator,
             networkService: movieNetworkService,
             imageProxy: imageProxyService,
             coreDataService: coreDataService
         )
-        viewController.inject(viewModel: movieListViewModel, coordinator: coordinator)
+        viewController.inject(viewModel: movieListViewModel)
         return viewController
     }
 

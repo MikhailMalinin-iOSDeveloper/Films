@@ -8,10 +8,6 @@
 import UIKit
 
 final class MovieListViewController: UIViewController {
-    // MARK: - Public properties
-
-    var coordinator: MovieListCoordinatorProtocol?
-
     // MARK: - Private properties
 
     private var viewModel: MovieListViewModelProtocol?
@@ -32,9 +28,8 @@ final class MovieListViewController: UIViewController {
 
     // MARK: - Public methods
 
-    func inject(viewModel: MovieListViewModelProtocol, coordinator: MovieListCoordinatorProtocol) {
+    func inject(viewModel: MovieListViewModelProtocol) {
         self.viewModel = viewModel
-        self.coordinator = coordinator
     }
 
     // MARK: - Private Methods
@@ -110,7 +105,7 @@ extension MovieListViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        coordinator?.toDetail(for: viewModel?.movies?[indexPath.row])
+        viewModel?.toMovieDetail(for: indexPath)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

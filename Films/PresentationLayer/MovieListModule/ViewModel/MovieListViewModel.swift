@@ -12,12 +12,14 @@ protocol MovieListViewModelProtocol {
     var movies: [Movie]? { get set }
     var update: (() -> ())? { get set }
     init(
+        coordinator: MovieListCoordinatorProtocol,
         networkService: MovieNetworkServiceProtocol,
         imageProxy: ImageProxyServiceProtocol,
         coreDataService: CoreDataServiceProtocol
     )
     func fetchMovies(for category: MovieCategory)
     func fetchImage(for path: String, completion: @escaping ((Result<UIImage?, Error>) -> ()))
+    func toMovieDetail(for indexPath: IndexPath)
 }
 
 final class MovieListViewModel: MovieListViewModelProtocol {
@@ -27,12 +29,15 @@ final class MovieListViewModel: MovieListViewModelProtocol {
     private let networkService: MovieNetworkServiceProtocol
     private let imageProxy: ImageProxyServiceProtocol
     private let coreDataService: CoreDataServiceProtocol
+    private let coordinator: MovieListCoordinatorProtocol
 
     init(
+        coordinator: MovieListCoordinatorProtocol,
         networkService: MovieNetworkServiceProtocol,
         imageProxy: ImageProxyServiceProtocol,
         coreDataService: CoreDataServiceProtocol
     ) {
+        self.coordinator = coordinator
         self.networkService = networkService
         self.imageProxy = imageProxy
         self.coreDataService = coreDataService
@@ -66,5 +71,9 @@ final class MovieListViewModel: MovieListViewModelProtocol {
                 completion(.failure(error))
             }
         }
+    }
+
+    func toMovieDetail(for indexPath: IndexPath) {
+        coordinator.toDetail(for: movies?[indexPath.row])
     }
 }

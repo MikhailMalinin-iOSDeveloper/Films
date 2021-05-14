@@ -138,13 +138,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C34C890925F81AF8008BBB28 /* Services */ = {
+		C34C890925F81AF8008BBB28 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
 				C3A13F29264D86E800E80C80 /* CoreDataService */,
 				C3A13F3A264D89E100E80C80 /* NetworkServices */,
 			);
-			path = Services;
+			path = ServiceLayer;
 			sourceTree = "<group>";
 		};
 		C36656D825F1502000C9A857 = {
@@ -172,10 +172,9 @@
 			children = (
 				C366570225F6468900C9A857 /* LaunchFiles */,
 				C3A13EFB264B14B400E80C80 /* Builder */,
-				C3A13EC42649779600E80C80 /* MovieListModule */,
-				C3A13EC5264977A300E80C80 /* MovieDetailsModule */,
 				C3A13EF6264B0AE700E80C80 /* Navigation */,
-				C34C890925F81AF8008BBB28 /* Services */,
+				C3A13F74264ED9AD00E80C80 /* PresentationLayer */,
+				C34C890925F81AF8008BBB28 /* ServiceLayer */,
 				C366571325F64D3800C9A857 /* Extensions */,
 				C366570625F646E200C9A857 /* SupportingFiles */,
 			);
@@ -217,7 +216,6 @@
 				C3A13EC6264977B100E80C80 /* Model */,
 				C3A13EC7264977B800E80C80 /* View */,
 				C3A13EC8264977BF00E80C80 /* ViewModel */,
-				C3A13EFE264B169900E80C80 /* Navigation */,
 			);
 			path = MovieListModule;
 			sourceTree = "<group>";
@@ -292,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				C3A13EF7264B0AFA00E80C80 /* Coordinator.swift */,
+				C3A13EF9264B0B6600E80C80 /* MovieListCoordinator.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -302,14 +301,6 @@
 				C3A13EFC264B14B400E80C80 /* ModuleBuilder.swift */,
 			);
 			path = Builder;
-			sourceTree = "<group>";
-		};
-		C3A13EFE264B169900E80C80 /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-				C3A13EF9264B0B6600E80C80 /* MovieListCoordinator.swift */,
-			);
-			path = Navigation;
 			sourceTree = "<group>";
 		};
 		C3A13F03264C027400E80C80 /* PhotoService */ = {
@@ -395,6 +386,15 @@
 				C3A13F72264EB11400E80C80 /* TestMovieDetailModule.swift */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		C3A13F74264ED9AD00E80C80 /* PresentationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				C3A13EC42649779600E80C80 /* MovieListModule */,
+				C3A13EC5264977A300E80C80 /* MovieDetailsModule */,
+			);
+			path = PresentationLayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
