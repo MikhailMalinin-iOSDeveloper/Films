@@ -17,10 +17,13 @@ final class FilmsUITests: XCTestCase {
         sleep(2)
         app.scrollViews.firstMatch.swipeLeft()
         sleep(2)
-        app.scrollViews.firstMatch.swipeRight()
+        app.scrollViews.firstMatch.swipeLeft()
         sleep(2)
         app.tables.firstMatch.swipeUp()
         sleep(2)
         app.navigationBars.buttons.firstMatch.tap()
+        sleep(2)
+        app.tables.firstMatch.swipeUp()
+        sleep(2)
     }
 }

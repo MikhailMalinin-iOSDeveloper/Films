@@ -8,7 +8,7 @@
 @testable import Films
 import XCTest
 
-final class TestMovieNetworkService: XCTestCase {
+final class TestMovieListModule: XCTestCase {
     private var networkService: MovieNetworkServiceProtocol!
     private var imageProxy: ImageProxyServiceProtocol!
     private var coreDataService: CoreDataServiceProtocol!
@@ -91,45 +91,53 @@ final class TestMovieNetworkService: XCTestCase {
         XCTAssertNotNil(catchError)
     }
 
-//    func testGetSuccessPhotos() {
-//        let photo = Photo(aspectRatio: 1, filePath: "path")
-//        photos.append(photo)
-//
-//        networkService = MockMovieNetworkService(photos: photos)
-//
-//        viewModel = MovieListViewModel(networkService: networkService, imageProxy: imageProxy)
-//
-//        var catchPhotos: [Photo]?
-//
-//        networkService.loadPhotos(for: 0) { result in
-//            switch result {
-//            case let .success(photos):
-//                catchPhotos = photos
-//            case .failure:
-//                break
-//            }
-//        }
-//
-//        XCTAssertNotEqual(catchPhotos?.count, 0)
-//        XCTAssertEqual(catchPhotos?.count, photos.count)
-//    }
-//
-//    func testGetFailurePhotos() {
-//        viewModel = MovieListViewModel(networkService: networkService, imageProxy: imageProxy)
-//
-//        var catchError: Error?
-//
-//        networkService.loadPhotos(for: 0) { result in
-//            switch result {
-//            case .success:
-//                break
-//            case let .failure(error):
-//                catchError = error
-//            }
-//        }
-//
-//        XCTAssertNotNil(catchError)
-//    }
+    func testGetSuccessPhotos() {
+        let photo = Photo(aspectRatio: 1, filePath: "path")
+        photos.append(photo)
+
+        networkService = MockMovieNetworkService(photos: photos)
+
+        viewModel = MovieListViewModel(
+            networkService: networkService,
+            imageProxy: imageProxy,
+            coreDataService: coreDataService
+        )
+
+        var catchPhotos: [Photo]?
+
+        networkService.loadPhotos(for: 0) { result in
+            switch result {
+            case let .success(photos):
+                catchPhotos = photos
+            case .failure:
+                break
+            }
+        }
+
+        XCTAssertNotEqual(catchPhotos?.count, 0)
+        XCTAssertEqual(catchPhotos?.count, photos.count)
+    }
+
+    func testGetFailurePhotos() {
+        viewModel = MovieListViewModel(
+            networkService: networkService,
+            imageProxy: imageProxy,
+            coreDataService: coreDataService
+        )
+
+        var catchError: Error?
+
+        networkService.loadPhotos(for: 0) { result in
+            switch result {
+            case .success:
+                break
+            case let .failure(error):
+                catchError = error
+            }
+        }
+
+        XCTAssertNotNil(catchError)
+    }
 
     func testGetSuccessImages() {
         let image = UIImage(systemName: "applelogo")

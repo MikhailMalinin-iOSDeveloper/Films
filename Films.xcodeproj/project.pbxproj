@@ -35,7 +35,7 @@
 		C3A13F02264C01A200E80C80 /* PhotoNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F01264C01A200E80C80 /* PhotoNetworkService.swift */; };
 		C3A13F06264C228F00E80C80 /* MovieDetailsPhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F05264C228F00E80C80 /* MovieDetailsPhotosTableViewCell.swift */; };
 		C3A13F0E264D07CE00E80C80 /* FilmsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F0D264D07CE00E80C80 /* FilmsUITests.swift */; };
-		C3A13F24264D267500E80C80 /* TestMovieNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F23264D267500E80C80 /* TestMovieNetworkService.swift */; };
+		C3A13F24264D267500E80C80 /* TestMovieListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F23264D267500E80C80 /* TestMovieListModule.swift */; };
 		C3A13F2C264D86E900E80C80 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F2A264D86E800E80C80 /* CoreData.xcdatamodeld */; };
 		C3A13F3C264D8C2700E80C80 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F3B264D8C2700E80C80 /* CoreDataStack.swift */; };
 		C3A13F3E264D8CB900E80C80 /* DispatchQueue+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F3D264D8CB900E80C80 /* DispatchQueue+Ext.swift */; };
@@ -45,6 +45,7 @@
 		C3A13F6A264DCC2100E80C80 /* MockMovieNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F69264DCC2000E80C80 /* MockMovieNetworkService.swift */; };
 		C3A13F6C264DCC5D00E80C80 /* MockImageProxyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F6B264DCC5D00E80C80 /* MockImageProxyService.swift */; };
 		C3A13F6E264DCCAF00E80C80 /* MockCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F6D264DCCAF00E80C80 /* MockCoreDataService.swift */; };
+		C3A13F73264EB11400E80C80 /* TestMovieDetailModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F72264EB11400E80C80 /* TestMovieDetailModule.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,7 +100,7 @@
 		C3A13F0F264D07CE00E80C80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3A13F19264D260E00E80C80 /* FilmsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FilmsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3A13F1D264D260F00E80C80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C3A13F23264D267500E80C80 /* TestMovieNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMovieNetworkService.swift; sourceTree = "<group>"; };
+		C3A13F23264D267500E80C80 /* TestMovieListModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMovieListModule.swift; sourceTree = "<group>"; };
 		C3A13F2B264D86E800E80C80 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		C3A13F3B264D8C2700E80C80 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		C3A13F3D264D8CB900E80C80 /* DispatchQueue+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Ext.swift"; sourceTree = "<group>"; };
@@ -109,6 +110,7 @@
 		C3A13F69264DCC2000E80C80 /* MockMovieNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMovieNetworkService.swift; sourceTree = "<group>"; };
 		C3A13F6B264DCC5D00E80C80 /* MockImageProxyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageProxyService.swift; sourceTree = "<group>"; };
 		C3A13F6D264DCCAF00E80C80 /* MockCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCoreDataService.swift; sourceTree = "<group>"; };
+		C3A13F72264EB11400E80C80 /* TestMovieDetailModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMovieDetailModule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -341,7 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				C3A13F68264DCC0D00E80C80 /* Mocks */,
-				C3A13F23264D267500E80C80 /* TestMovieNetworkService.swift */,
+				C3A13F6F264EB0E300E80C80 /* Tests */,
 				C3A13F1D264D260F00E80C80 /* Info.plist */,
 			);
 			path = FilmsTests;
@@ -384,6 +386,15 @@
 				C3A13F6D264DCCAF00E80C80 /* MockCoreDataService.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		C3A13F6F264EB0E300E80C80 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C3A13F23264D267500E80C80 /* TestMovieListModule.swift */,
+				C3A13F72264EB11400E80C80 /* TestMovieDetailModule.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -602,9 +613,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3A13F24264D267500E80C80 /* TestMovieNetworkService.swift in Sources */,
+				C3A13F24264D267500E80C80 /* TestMovieListModule.swift in Sources */,
 				C3A13F6C264DCC5D00E80C80 /* MockImageProxyService.swift in Sources */,
 				C3A13F6E264DCCAF00E80C80 /* MockCoreDataService.swift in Sources */,
+				C3A13F73264EB11400E80C80 /* TestMovieDetailModule.swift in Sources */,
 				C3A13F6A264DCC2100E80C80 /* MockMovieNetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
