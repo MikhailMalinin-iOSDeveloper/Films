@@ -11,12 +11,7 @@ import UIKit
 protocol MovieListViewModelProtocol {
     var movies: [Movie]? { get set }
     var update: (() -> ())? { get set }
-    init(
-        coordinator: MovieListCoordinatorProtocol,
-        networkService: MovieNetworkServiceProtocol,
-        imageProxy: ImageProxyServiceProtocol,
-        coreDataService: CoreDataServiceProtocol
-    )
+
     func fetchMovies(for category: MovieCategory)
     func fetchImage(for path: String, completion: @escaping ((Result<UIImage?, Error>) -> ()))
     func toMovieDetail(for indexPath: IndexPath)

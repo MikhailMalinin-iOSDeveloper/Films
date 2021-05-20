@@ -36,6 +36,7 @@ final class MovieDetailsViewController: UIViewController {
 
     private func setup() {
         title = viewModel?.movie?.title
+        view.backgroundColor = .systemBackground
 
         updateView()
         viewModel?.setMovie()

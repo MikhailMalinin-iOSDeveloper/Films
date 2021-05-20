@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C3094D8B25FBD3D9004CB9F4 /* ImageProxyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3094D8A25FBD3D9004CB9F4 /* ImageProxyService.swift */; };
 		C34C890B25F81B19008BBB28 /* MovieNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C890A25F81B19008BBB28 /* MovieNetworkService.swift */; };
+		C355B0302656529C005A7CE8 /* MovieEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C355B02E2656529C005A7CE8 /* MovieEntity+CoreDataProperties.swift */; };
+		C355B0312656529C005A7CE8 /* MovieEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C355B02F2656529C005A7CE8 /* MovieEntity+CoreDataClass.swift */; };
 		C36656E525F1502000C9A857 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36656E425F1502000C9A857 /* AppDelegate.swift */; };
 		C36656E725F1502000C9A857 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36656E625F1502000C9A857 /* SceneDelegate.swift */; };
 		C36656EE25F1502300C9A857 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C36656ED25F1502300C9A857 /* Assets.xcassets */; };
@@ -40,8 +42,6 @@
 		C3A13F3C264D8C2700E80C80 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F3B264D8C2700E80C80 /* CoreDataStack.swift */; };
 		C3A13F3E264D8CB900E80C80 /* DispatchQueue+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F3D264D8CB900E80C80 /* DispatchQueue+Ext.swift */; };
 		C3A13F63264DA32A00E80C80 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F62264DA32A00E80C80 /* CoreDataService.swift */; };
-		C3A13F66264DA45500E80C80 /* MovieEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F64264DA45500E80C80 /* MovieEntity+CoreDataClass.swift */; };
-		C3A13F67264DA45500E80C80 /* MovieEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F65264DA45500E80C80 /* MovieEntity+CoreDataProperties.swift */; };
 		C3A13F6A264DCC2100E80C80 /* MockMovieNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F69264DCC2000E80C80 /* MockMovieNetworkService.swift */; };
 		C3A13F6C264DCC5D00E80C80 /* MockImageProxyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F6B264DCC5D00E80C80 /* MockImageProxyService.swift */; };
 		C3A13F6E264DCCAF00E80C80 /* MockCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A13F6D264DCCAF00E80C80 /* MockCoreDataService.swift */; };
@@ -68,6 +68,8 @@
 /* Begin PBXFileReference section */
 		C3094D8A25FBD3D9004CB9F4 /* ImageProxyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProxyService.swift; sourceTree = "<group>"; };
 		C34C890A25F81B19008BBB28 /* MovieNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieNetworkService.swift; sourceTree = "<group>"; };
+		C355B02E2656529C005A7CE8 /* MovieEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MovieEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C355B02F2656529C005A7CE8 /* MovieEntity+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MovieEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C36656E125F1502000C9A857 /* Films.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Films.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C36656E425F1502000C9A857 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C36656E625F1502000C9A857 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,8 +107,6 @@
 		C3A13F3B264D8C2700E80C80 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		C3A13F3D264D8CB900E80C80 /* DispatchQueue+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Ext.swift"; sourceTree = "<group>"; };
 		C3A13F62264DA32A00E80C80 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
-		C3A13F64264DA45500E80C80 /* MovieEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		C3A13F65264DA45500E80C80 /* MovieEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		C3A13F69264DCC2000E80C80 /* MockMovieNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMovieNetworkService.swift; sourceTree = "<group>"; };
 		C3A13F6B264DCC5D00E80C80 /* MockImageProxyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageProxyService.swift; sourceTree = "<group>"; };
 		C3A13F6D264DCCAF00E80C80 /* MockCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCoreDataService.swift; sourceTree = "<group>"; };
@@ -354,8 +354,8 @@
 		C3A13F35264D897100E80C80 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C3A13F64264DA45500E80C80 /* MovieEntity+CoreDataClass.swift */,
-				C3A13F65264DA45500E80C80 /* MovieEntity+CoreDataProperties.swift */,
+				C355B02F2656529C005A7CE8 /* MovieEntity+CoreDataClass.swift */,
+				C355B02E2656529C005A7CE8 /* MovieEntity+CoreDataProperties.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -578,6 +578,8 @@
 				C3A13EFA264B0B6600E80C80 /* MovieListCoordinator.swift in Sources */,
 				C3A13EF8264B0AFA00E80C80 /* Coordinator.swift in Sources */,
 				C3A13EE526498FAA00E80C80 /* CategoryCollectionViewCell.swift in Sources */,
+				C355B0302656529C005A7CE8 /* MovieEntity+CoreDataProperties.swift in Sources */,
+				C355B0312656529C005A7CE8 /* MovieEntity+CoreDataClass.swift in Sources */,
 				C366571C25F69A2C00C9A857 /* Movie.swift in Sources */,
 				C3A13EE326498FAA00E80C80 /* MovieListView.swift in Sources */,
 				C3A13EFD264B14B400E80C80 /* ModuleBuilder.swift in Sources */,
@@ -588,12 +590,10 @@
 				C3A13F2C264D86E900E80C80 /* CoreData.xcdatamodeld in Sources */,
 				C3A13EE426498FAA00E80C80 /* MovieListTableViewCell.swift in Sources */,
 				C3A13ECD2649789700E80C80 /* MovieCatagory.swift in Sources */,
-				C3A13F67264DA45500E80C80 /* MovieEntity+CoreDataProperties.swift in Sources */,
 				C3094D8B25FBD3D9004CB9F4 /* ImageProxyService.swift in Sources */,
 				C3A13EF12649909F00E80C80 /* MovieListViewController.swift in Sources */,
 				C34C890B25F81B19008BBB28 /* MovieNetworkService.swift in Sources */,
 				C3A13EF5264A747E00E80C80 /* MovieListViewModel.swift in Sources */,
-				C3A13F66264DA45500E80C80 /* MovieEntity+CoreDataClass.swift in Sources */,
 				C3A13ECF26497A4200E80C80 /* PhotoModel.swift in Sources */,
 				C36656E725F1502000C9A857 /* SceneDelegate.swift in Sources */,
 				C3A13EE226498FAA00E80C80 /* CategoryView.swift in Sources */,

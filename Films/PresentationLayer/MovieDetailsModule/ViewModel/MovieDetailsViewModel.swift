@@ -12,7 +12,6 @@ protocol MovieDetailsViewModelProtocol {
     var imageArray: [UIImage?] { get set }
     var movie: Movie? { get set }
     var update: (() -> ())? { get set }
-    init(movie: Movie?, networkService: MovieNetworkServiceProtocol, imageProxy: ImageProxyServiceProtocol)
 
     func setMovie()
 }

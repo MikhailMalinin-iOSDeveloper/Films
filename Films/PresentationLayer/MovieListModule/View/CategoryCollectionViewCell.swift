@@ -12,7 +12,7 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Private properties
 
-    private let categoryLabel: UILabel = {
+    private lazy var categoryLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 15)
@@ -21,16 +21,10 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
         label.layer.borderWidth = 2
         label.layer.borderColor = UIColor.label.cgColor
         label.layer.masksToBounds = true
+        addSubview(label)
+        label.anchor(top: topAnchor, bottom: bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor)
         return label
     }()
-
-    // MARK: - View life cycle
-
-    override func layoutSubviews() {
-        addSubview(categoryLabel)
-
-        categoryLabel.anchor(top: topAnchor, bottom: bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor)
-    }
 
     // MARK: - Public Methods
 

@@ -15,7 +15,18 @@ protocol MovieListViewDelegate: AnyObject {
 final class MovieListView: UIView {
     // MARK: - VisualComponents
 
-    private(set) var tableView = UITableView(frame: .zero, style: .plain)
+    private(set) lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        addSubview(tableView)
+        tableView.anchor(
+            top: safeAreaLayoutGuide.topAnchor,
+            bottom: bottomAnchor,
+            leading: leadingAnchor,
+            trailing: trailingAnchor
+        )
+        return tableView
+    }()
 
     // MARK: - Public properties
 
@@ -36,21 +47,6 @@ final class MovieListView: UIView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    // MARK: - View Life cycle
-
-    override func layoutSubviews() {
-        setTableViewDelegateAndDataSource()
-
-        addSubview(tableView)
-
-        tableView.anchor(
-            top: safeAreaLayoutGuide.topAnchor,
-            bottom: bottomAnchor,
-            leading: leadingAnchor,
-            trailing: trailingAnchor
-        )
     }
 
     // MARK: - PrivateMethods

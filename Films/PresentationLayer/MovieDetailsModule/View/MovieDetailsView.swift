@@ -15,7 +15,20 @@ protocol MovieDetailsViewDelegate: AnyObject {
 final class MovieDetailsView: UIView {
     // MARK: - VisualComponents
 
-    private(set) var tableView = UITableView()
+    private(set) lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        tableView.allowsSelection = false
+        tableView.showsVerticalScrollIndicator = false
+        addSubview(tableView)
+        tableView.anchor(
+            top: safeAreaLayoutGuide.topAnchor,
+            bottom: safeAreaLayoutGuide.bottomAnchor,
+            leading: leadingAnchor,
+            trailing: trailingAnchor
+        )
+        return tableView
+    }()
 
     // MARK: - Public properties
 
@@ -38,19 +51,6 @@ final class MovieDetailsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - UIView life circle
-
-    override func layoutSubviews() {
-        addSubview(tableView)
-
-        tableView.anchor(
-            top: safeAreaLayoutGuide.topAnchor,
-            bottom: safeAreaLayoutGuide.bottomAnchor,
-            leading: leadingAnchor,
-            trailing: trailingAnchor
-        )
-    }
-
     // MARK: - PrivateMethods
 
     private func setupTableView() {
@@ -65,6 +65,8 @@ final class MovieDetailsView: UIView {
             forCellReuseIdentifier: MovieDetailsPhotosTableViewCell.id
         )
     }
+
+    // MARK: - PrivateMethods
 
     private func setTableViewDelegateAndDataSource() {
         tableView.delegate = delegate?.setupTableViewDelegate()

@@ -23,15 +23,3 @@ struct Photo: Codable {
         case filePath = "file_path"
     }
 }
-
-// enum MovieDetailsModel {
-//    case loading
-//    case error(_ error: Error)
-//    case data(data: DetailsModel)
-//
-//    struct DetailsModel {
-//        let title: String
-//        let photos: [Data]
-//        let description: String
-//    }
-// }

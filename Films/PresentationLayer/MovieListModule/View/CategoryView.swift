@@ -20,16 +20,31 @@ final class CategoryView: UIView {
 
     // MARK: - Private properties
 
-    private var categoryCollectionView: UICollectionView?
+    private var categoryCollectionView: UICollectionView
 
-    // MARK: - View life cycle
+    init() {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 10
+        layout.itemSize = CGSize(width: 150, height: 30)
+        categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        super.init(frame: .zero)
 
-    override func layoutSubviews() {
+        config()
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Public Method
+
+    func config() {
         backgroundColor = .systemBackground
 
-        addSubview(categoryCollectionView ?? UICollectionView())
-
-        categoryCollectionView?.anchor(
+        addSubview(categoryCollectionView)
+        categoryCollectionView.anchor(
             top: topAnchor,
             bottom: bottomAnchor,
             leading: leadingAnchor,
@@ -37,29 +52,13 @@ final class CategoryView: UIView {
             paddingLeading: 10,
             paddingTrailing: 10
         )
-    }
-
-    // MARK: - Public Method
-
-    func config() {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 10
-        layout.itemSize = CGSize(width: 150, height: 30)
-        categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        categoryCollectionView?.backgroundColor = .systemBackground
-        categoryCollectionView?.showsHorizontalScrollIndicator = false
-        setupCollectionView()
-    }
-
-    // MARK: - Private methods
-
-    private func setupCollectionView() {
-        categoryCollectionView?.register(
+        categoryCollectionView.backgroundColor = .systemBackground
+        categoryCollectionView.showsHorizontalScrollIndicator = false
+        categoryCollectionView.register(
             CategoryCollectionViewCell.self,
             forCellWithReuseIdentifier: CategoryCollectionViewCell.id
         )
-        categoryCollectionView?.delegate = delegate?.setupCollectionViewDelegate()
-        categoryCollectionView?.dataSource = delegate?.setupCollectionViewDataSource()
+        categoryCollectionView.delegate = delegate?.setupCollectionViewDelegate()
+        categoryCollectionView.dataSource = delegate?.setupCollectionViewDataSource()
     }
 }

@@ -37,8 +37,8 @@ final class MovieListViewController: UIViewController {
     private func setup() {
         title = "Movies"
 
-        viewModel?.fetchMovies(for: .nowPlaying)
         updateView()
+        viewModel?.fetchMovies(for: .nowPlaying)
     }
 
     private func updateView() {
@@ -64,12 +64,12 @@ extension MovieListViewController: MovieListViewDelegate {
 
 extension MovieListViewController: MovieListTableViewCellDelegate {
     func fetchImage(by path: String, completion: @escaping (UIImage?) -> ()) {
-        viewModel?.fetchImage(for: path) { [weak self] result in
+        viewModel?.fetchImage(for: path) { result in
             switch result {
             case let .success(image):
                 completion(image)
             case let .failure(error):
-                self?.showError(error)
+                debugPrint(error)
             }
         }
     }
@@ -101,11 +101,12 @@ extension MovieListViewController: UITableViewDataSource {
 
 extension MovieListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        150
+        175
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel?.toMovieDetail(for: indexPath)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
