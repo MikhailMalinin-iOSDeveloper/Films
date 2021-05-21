@@ -31,7 +31,7 @@ final class PhotoNetworkService: PhotoNetworkServiceProtocol {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
 
-        let task = session.dataTask(with: url) { data, _, error in
+        session.dataTask(with: url) { data, _, error in
             if let error = error {
                 DispatchQueue.main.async {
                     completion(.failure(error))
@@ -41,10 +41,6 @@ final class PhotoNetworkService: PhotoNetworkServiceProtocol {
                     completion(.success(data))
                 }
             }
-        }
-
-        DispatchQueue.global().async {
-            task.resume()
-        }
+        }.resume()
     }
 }

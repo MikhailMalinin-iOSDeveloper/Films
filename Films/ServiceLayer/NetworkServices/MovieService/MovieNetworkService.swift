@@ -36,7 +36,7 @@ final class MovieNetworkService: MovieNetworkServiceProtocol {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
 
-        let task = session.dataTask(with: url) { data, _, error in
+        session.dataTask(with: url) { data, _, error in
             if let error = error {
                 DispatchQueue.main.async {
                     completion(.failure(error))
@@ -53,11 +53,7 @@ final class MovieNetworkService: MovieNetworkServiceProtocol {
                     }
                 }
             }
-        }
-
-        DispatchQueue.global().async {
-            task.resume()
-        }
+        }.resume()
     }
 
     func loadPhotos(for movieId: Int, completion: @escaping (Result<[Photo]?, Error>) -> ()) {
@@ -73,7 +69,7 @@ final class MovieNetworkService: MovieNetworkServiceProtocol {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
 
-        let task = session.dataTask(with: url) { data, _, error in
+        session.dataTask(with: url) { data, _, error in
             if let error = error {
                 DispatchQueue.main.async {
                     completion(.failure(error))
@@ -90,10 +86,6 @@ final class MovieNetworkService: MovieNetworkServiceProtocol {
                     }
                 }
             }
-        }
-
-        DispatchQueue.global().async {
-            task.resume()
-        }
+        }.resume()
     }
 }

@@ -17,7 +17,6 @@ final class MovieDetailsView: UIView {
 
     private(set) lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.showsVerticalScrollIndicator = false
         addSubview(tableView)
@@ -56,10 +55,6 @@ final class MovieDetailsView: UIView {
     private func setupTableView() {
         tableView.showsVerticalScrollIndicator = false
 
-        tableView.register(
-            MovieDetailsDescriptionTableViewCell.self,
-            forCellReuseIdentifier: MovieDetailsDescriptionTableViewCell.id
-        )
         tableView.register(
             MovieDetailsPhotosTableViewCell.self,
             forCellReuseIdentifier: MovieDetailsPhotosTableViewCell.id

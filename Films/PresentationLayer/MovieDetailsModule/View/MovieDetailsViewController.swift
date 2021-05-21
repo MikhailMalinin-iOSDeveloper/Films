@@ -65,7 +65,7 @@ extension MovieDetailsViewController: UITableViewDelegate {}
 
 extension MovieDetailsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        3
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -80,14 +80,16 @@ extension MovieDetailsViewController: UITableViewDataSource {
             }
             return cell ?? UITableViewCell()
         case 1:
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: MovieDetailsDescriptionTableViewCell.id,
-                for: indexPath
-            ) as? MovieDetailsDescriptionTableViewCell
-            cell?.setup(descriptionText: viewModel?.movie?.overview)
-            return cell ?? UITableViewCell()
+            return MovieDetailsTitleTableViewCell(
+                title: viewModel?.movie?.title ?? "",
+                popularity: viewModel?.movie?.popularity ?? 0,
+                rating: viewModel?.movie?.voteAverage ?? 0
+            )
+        case 2:
+            return MovieDetailsDescriptionTableViewCell(descriptionText: viewModel?.movie?.overview)
         default:
-            return UITableViewCell()
+            break
         }
+        return UITableViewCell()
     }
 }
