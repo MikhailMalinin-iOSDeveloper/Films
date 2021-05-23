@@ -13,6 +13,7 @@ final class TestMovieListModule: XCTestCase {
     private var imageProxy: ImageProxyServiceProtocol!
     private var coreDataService: CoreDataServiceProtocol!
     private var viewModel: MovieListViewModelProtocol!
+    private var coordinator: MovieListCoordinatorProtocol!
     private var movies: [Movie]!
     private var photos: [Photo]!
 
@@ -22,6 +23,7 @@ final class TestMovieListModule: XCTestCase {
         networkService = MockMovieNetworkService()
         imageProxy = MockImageProxyService()
         coreDataService = MockCoreDataService()
+        coordinator = StabMovieListCoordinator()
         movies = []
         photos = []
     }
@@ -33,6 +35,7 @@ final class TestMovieListModule: XCTestCase {
         imageProxy = nil
         coreDataService = nil
         viewModel = nil
+        coordinator = nil
         movies = nil
         photos = nil
     }
@@ -53,6 +56,7 @@ final class TestMovieListModule: XCTestCase {
         networkService = MockMovieNetworkService(movies: movies)
 
         viewModel = MovieListViewModel(
+            coordinator: coordinator,
             networkService: networkService,
             imageProxy: imageProxy,
             coreDataService: coreDataService
@@ -72,6 +76,7 @@ final class TestMovieListModule: XCTestCase {
 
     func testGetFailureMovies() {
         viewModel = MovieListViewModel(
+            coordinator: coordinator,
             networkService: networkService,
             imageProxy: imageProxy,
             coreDataService: coreDataService
@@ -98,6 +103,7 @@ final class TestMovieListModule: XCTestCase {
         networkService = MockMovieNetworkService(photos: photos)
 
         viewModel = MovieListViewModel(
+            coordinator: coordinator,
             networkService: networkService,
             imageProxy: imageProxy,
             coreDataService: coreDataService
@@ -120,6 +126,7 @@ final class TestMovieListModule: XCTestCase {
 
     func testGetFailurePhotos() {
         viewModel = MovieListViewModel(
+            coordinator: coordinator,
             networkService: networkService,
             imageProxy: imageProxy,
             coreDataService: coreDataService
@@ -145,6 +152,7 @@ final class TestMovieListModule: XCTestCase {
         imageProxy = MockImageProxyService(image: image)
 
         viewModel = MovieListViewModel(
+            coordinator: coordinator,
             networkService: networkService,
             imageProxy: imageProxy,
             coreDataService: coreDataService
@@ -166,6 +174,7 @@ final class TestMovieListModule: XCTestCase {
 
     func testGetFailureImages() {
         viewModel = MovieListViewModel(
+            coordinator: coordinator,
             networkService: networkService,
             imageProxy: imageProxy,
             coreDataService: coreDataService

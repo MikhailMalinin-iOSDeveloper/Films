@@ -13,7 +13,6 @@ protocol MovieListCoordinatorProtocol: Coordinator {
 }
 
 final class MovieListCoordinator: MovieListCoordinatorProtocol {
-    var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     private var moduleBuilder: ModuleBuilderProtocol
 
