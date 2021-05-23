@@ -42,7 +42,7 @@ final class MovieListTableViewCell: UITableViewCell {
         label.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.4)
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textAlignment = .center
-        cellView.addSubview(label)
+        movieImageView.addSubview(label)
         label.anchor(
             bottom: movieImageView.bottomAnchor,
             trailing: movieImageView.trailingAnchor,
